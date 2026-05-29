@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission: Forgiveness ❤️</title>
+
+<style>
+    body{
+        margin:0;
+        overflow:hidden;
+        font-family:Arial, sans-serif;
+        background:linear-gradient(to bottom,#1a1a2e,#16213e);
+        color:white;
+        text-align:center;
+    }
+
+    h1{
+        margin-top:20px;
+        font-size:35px;
+        color:#ff6b81;
+    }
+
+    #gameArea{
+        position:relative;
+        width:100vw;
+        height:80vh;
+        overflow:hidden;
+    }
+
+    #player{
+        position:absolute;
+        bottom:20px;
+        left:50%;
+        transform:translateX(-50%);
+        font-size:50px;
+        transition:0.1s;
+    }
+
+    .heart{
+        position:absolute;
+        top:-50px;
+        font-size:35px;
+        animation:fall linear forwards;
+    }
+
+    .bomb{
+        position:absolute;
+        top:-50px;
+        font-size:35px;
+        animation:fall linear forwards;
+    }
+
+    @keyframes fall{
+        to{
+            transform:translateY(100vh);
+        }
+    }
+
+    #scoreBoard{
+        font-size:24px;
+        margin-top:10px;
+    }
+
+    #message{
+        display:none;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        background:white;
+        color:#333;
+        padding:30px;
+        border-radius:20px;
+        width:320px;
+        box-shadow:0 0 20px rgba(255,255,255,0.3);
+    }
+
+    button{
+        margin-top:15px;
+        padding:12px 20px;
+        border:none;
+        border-radius:25px;
+        background:#ff4d6d;
+        color:white;
+        font-size:16px;
+        cursor:pointer;
+    }
+
+    button:hover{
+        background:#ff1e4d;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎮 Mission: Win Her Forgiveness ❤️</h1>
+
+<div id="scoreBoard">
+    Hearts Collected: <span id="score">0</span>/10
+</div>
+
+<div id="gameArea">
+    <div id="player">🥺</div>
+
+    <div id="message">
+        <h2>YOU WON ❤️</h2>
+
+        <p>
+            You collected enough love points 🥹<br><br>
+
+            Dear Love,<br>
+            I know I hurt you... and I'm truly sorry.  
+            You mean the world to me 💖<br><br>
+
+            Please forgive your cute idiot 😭
+        </p>
+
+        <button onclick="alert('YAYYY ❤️')">
+            Forgive Him 😅
+        </button>
+    </div>
+</div>
+
+<script>
+
+const player = document.getElementById("player");
+const gameArea = document.getElementById("gameArea");
+const scoreText = document.getElementById("score");
+const message = document.getElementById("message");
+
+let score = 0;
+let playerX = window.innerWidth / 2;
+
+document.addEventListener("mousemove", (e)=>{
+    playerX = e.clientX;
+    player.style.left = playerX + "px";
+});
+
+document.addEventListener("touchmove", (e)=>{
+    playerX = e.touches[0].clientX;
+    player.style.left = playerX + "px";
+});
+
+function createItem(type){
+
+    const item = document.createElement("div");
+
+    item.classList.add(type);
+
+    item.innerHTML = type === "heart" ? "❤️" : "💣";
+
+    item.style.left = Math.random() * (window.innerWidth - 50) + "px";
+
+    item.style.animationDuration = (3 + Math.random()*2) + "s";
+
+    gameArea.appendChild(item);
+
+    const fall = setInterval(()=>{
+
+        const itemRect = item.getBoundingClientRect();
+        const playerRect = player.getBoundingClientRect();
+
+        if(
+            itemRect.bottom >= playerRect.top &&
+            itemRect.left < playerRect.right &&
+            itemRect.right > playerRect.left
+        ){
+
+            if(type === "heart"){
+                score++;
+                scoreText.innerText = score;
+            }
+            else{
+                score = Math.max(0, score - 1);
+                scoreText.innerText = score;
+            }
+
+            item.remove();
+            clearInterval(fall);
+
+            if(score >= 10){
+                winGame();
+            }
+        }
+
+    },50);
+
+    setTimeout(()=>{
+        item.remove();
+        clearInterval(fall);
+    },5000);
+}
+
+function winGame(){
+    message.style.display = "block";
+}
+
+setInterval(()=>{
+    createItem(Math.random() > 0.3 ? "heart" : "bomb");
+},700);
+
+</script>
+
+</body>
+</html>
