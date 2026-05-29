@@ -1,2 +1,172 @@
-https://github.com/Pancholi50/yrros-1/blob/main/S1.html
-https://github.com/Pancholi50/yrros-1/blob/main/S2.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Surprise ❤️</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    overflow:hidden;
+}
+
+.container{
+    text-align:center;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+    padding:40px;
+    border-radius:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    width:350px;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0);}
+}
+
+h1{
+    color:white;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+p{
+    color:white;
+    margin-bottom:25px;
+    font-size:17px;
+}
+
+.btn{
+    display:block;
+    text-decoration:none;
+    margin:15px 0;
+    padding:15px;
+    border-radius:50px;
+    background:white;
+    color:#ff4d6d;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn:hover{
+    transform:scale(1.06);
+    background:#ff4d6d;
+    color:white;
+}
+
+.btn::before{
+    content:"❤️";
+    position:absolute;
+    left:20px;
+    opacity:0;
+    transition:0.3s;
+}
+
+.btn:hover::before{
+    opacity:1;
+    left:30px;
+}
+
+.footer{
+    margin-top:20px;
+    color:white;
+    font-size:14px;
+}
+
+.heart{
+    position:absolute;
+    color:white;
+    font-size:20px;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    0%{
+        transform:translateY(-100px);
+        opacity:1;
+    }
+    100%{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎁 Choose Your Surprise</h1>
+
+    <p>
+        Every button hides a little piece of my apology ❤️
+    </p>
+
+    <a href="main/S1.html" class="btn">
+        🌸 Open Surprise 1
+    </a>
+
+    <a href="main/S2.html" class="btn">
+        🎮 Open Surprise 2
+    </a>
+
+    <a href="main/S3.html" class="btn">
+        💌 Open Surprise 3
+    </a>
+
+    <div class="footer">
+        Made with love, regret & panic 😭❤️
+    </div>
+
+</div>
+
+<script>
+
+function createHeart(){
+
+    const heart = document.createElement("div");
+
+    heart.classList.add("heart");
+
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+
+    heart.style.animationDuration = (3 + Math.random()*5) + "s";
+
+    heart.style.fontSize = (15 + Math.random()*25) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+}
+
+setInterval(createHeart,300);
+
+</script>
+
+</body>
+</html>
